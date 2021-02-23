@@ -1,0 +1,37 @@
+1)	first impressions :
+		-function p : esp grown by 104 bytes.
+		-eip is stored at address : 0xffffceac
+		-ebp main stored at address : 0xffffcea8
+		-buffer start : 0xffffce5c
+		-esp : 0xffffce40
+
+Length from buf start to start of sEBP (excluded) is 76
+Length from buffer start to eip (included) is 84
+we need to store no op => shellcode => address in middle of no op area, little endian
+
+length of shellcode is 45 bytes
+length of address is 4 bytes
+
+84 - 45 - 4 = 35
+=> we need 35 no op characters
+
+
+no op addresses range from 0xffffce5c to 0xffffce7a
+=> 0xffffce6c is middle of that approx.
+
+
+Issue : next part of p function erases ffffce9c
+shellcode needs to end before that
+
+84 = x + 45 + 16 + 4
+
+Issue : if address starts with ffff, program exits.
+We need to call frame_dummy, and use its ret instruction to execute malicious code.
+
+first ret will pop eip + jmp
+	=> jmp to frame_dummy, without saving any EIP or whatsoever.
+		=> at the end of frame_dummy, ret will again pop whatever is on top of stack to EIP
+			=> Top of stack then (sEIP + 4) must be shellcode address
+
+88 = x + 45 + 16 + 4 + 4
+Seems like inside VM, sEIP is at 76th byte
