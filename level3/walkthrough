@@ -1,0 +1,28 @@
+1)	first impressions on the assembly
+	-a function v is called from the main function
+	-v function analysis :
+		-call to fgets
+			-max number of characters
+			-reads from stdin
+			-buff start + number of characters too small to get to EIP
+
+		-call to printf
+			-only one parameter, it's our buffer
+
+		-cmp between a string in data section (empty atm) and 0x40
+			=> If equal, we see the string in 0x8048600 that we succeed.
+			=> then a syscall on /bin/sh is made.
+
+=> Our goal is to have 0x40 (64 in base 10) inside this memory area.
+
+=> We heard about printf weaknesses if its string is user input.
+	=> %n to write in memory.
+		-%n writes at address pointed by variadic argument (taken from stack) the number of previously printed characters
+			=> inside the buffer we put :
+				-string address in which to write 0x40 little endian	=> 4chars
+				-%08x * 2												=> 16chars
+				-%44x * 2												=> 44chars
+				-%n
+
+			As ESP is 16 bytes before the buffer start (4 memory addresses), we need to make as if printf had 3 arguments to move the printf stack arguments pointer to our buffer.
+			Good alignment make the argument point on the start of our buffer (the address) while having written exactly 64 characters before.
