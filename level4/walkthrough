@@ -1,0 +1,10 @@
+1) first impressions
+	-printf inside p (with buffer ?)
+		=> we need to override "ds:0x8049810" to put value 0x1025544 inside.
+			=> Printf exploit again ?
+	-after p, if we succeed :
+		=> "/bin/cat /home/user/level5/.pass"
+
+2)	Addresses :
+		-buffer start : 0xffffcca0
+		-buffer end : FFFFCEA0
