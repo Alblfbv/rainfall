@@ -1,9 +1,0 @@
-break main
-break p
-break n
-break *0x08048460
-break *0x0804847f
-break *0x0804848d
-break *0x804844d
-break *0x8048450
-
