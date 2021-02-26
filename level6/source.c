@@ -26,13 +26,13 @@ int main(int argc, char **argv)
     //    0x080484a5 <+41>:	mov    edx,0x8048468                // store m address into edx
     //    0x080484aa <+46>:	mov    eax,DWORD PTR [esp+0x18]     // store buf2 address into eax
     //    0x080484ae <+50>:	mov    DWORD PTR [eax],edx          // store m address into ADDRESS CONTAINED IN EAX ==> Into buf2
-    //    0x080484b0 <+52>:	mov    eax,DWORD PTR [ebp+0xc]      // take value 12 bytes under main stack frame into eax (address argv1 ?)
-    //    0x080484b3 <+55>:	add    eax,0x4                      // adds 4 to eax value => (0xc + 0x4 = ebp + 0xf ?)
+    //    0x080484b0 <+52>:	mov    eax,DWORD PTR [ebp+0xc]      // take value 12 bytes under main stack frame into eax (argv0)
+    //    0x080484b3 <+55>:	add    eax,0x4                      // adds 4 to eax value => (argv1)
     //    0x080484b6 <+58>:	mov    eax,DWORD PTR [eax]          // stores the value pointed by EAX stored address into EAX (dereferencing pointer)
     //    0x080484b8 <+60>:	mov    edx,eax                      // store eax into edx
     //    0x080484ba <+62>:	mov    eax,DWORD PTR [esp+0x1c]     // store buf1 address into eax
 
-    strcpy(buf1, argv[1]); // not sure
+    strcpy(buf1, argv[1]);
     //    0x080484be <+66>:	mov    DWORD PTR [esp+0x4],edx
     //    0x080484c2 <+70>:	mov    DWORD PTR [esp],eax
     //    0x080484c5 <+73>:	call   0x8048340 <strcpy@plt>
