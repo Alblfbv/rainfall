@@ -1,0 +1,8 @@
+1)	first impressions :
+		-executable outputs (nil), (nil) when executed
+		-never exits, infinite loop
+		-only main function
+
+malloc <+140> == 0x804a9c0
+
+auth string points to malloc address
