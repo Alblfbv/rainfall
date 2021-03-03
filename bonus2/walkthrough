@@ -1,0 +1,45 @@
+1)	first impressions
+		-main
+		-greetuser
+		-strncpy, strcat, getenv, memcmp, puts
+
+2)	executable does nothing special on use
+		=> set env variable ?
+
+Program needs 2 arguments.
+says Hello argv[1]
+dunno what argv2 is used for.
+
+buf1 == 40 characters
+buf2 == 32 characters
+putting all 40 as 'A' and all 32 as 'B' creates a segfault.
+
+EBP main = 0xffffcdc8
+sEIP main = 0xffffcdcc
+
+EBP greetuser = 0xffffcdc8
+sEIP greetuser = 0xffffcd0c
+
+strcat writes greeting string + 72 characters from esp + 16.
+with "Hello " as greeting string that leads us to partially overwriting sEIP of greetuser (2 bytes we control, 1 \0, and last byte remains unchanged
+
+with finnish greetings "Hyvää päivää ", we should totally take control over sEIP
+
+Worked in gdb outside vm
+
+
+Inside VM :
+
+env - gdb bonus2
+unset env LINES
+unset env COLUMNS
+set env LANG=fi
+with argv1 40 chars and argv2 22 chars
+
+sEIP greetuser == 0xbffffd2c
+start buf == 0xbffffcf2
+
+outside of GDB :
+
+export LANG=fi
+env - PWD=$PWD LANG=$LANG /home/user/bonus2 $(/tmp/b2_argv1.sh) $(/tmp/b2_argv2.sh)
