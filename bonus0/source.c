@@ -66,7 +66,7 @@ void pp(void)
     //    0x08048547 <+41>:	call   0x80484b4 <p>
     //    0x0804854c <+46>:	lea    eax,[ebp-0x30]
 
-    strcpy();
+    strcpy(, buf1); // and buf2, as memory locations are contiguous
     //    0x0804854f <+49>:	mov    DWORD PTR [esp+0x4],eax
     //    0x08048553 <+53>:	mov    eax,DWORD PTR [ebp+0x8]
     //    0x08048556 <+56>:	mov    DWORD PTR [esp],eax

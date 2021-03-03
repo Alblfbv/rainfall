@@ -1,0 +1,29 @@
+1)	first impressions
+		-main
+		-atoi, execl, memcpy
+
+2)	binary :
+		-calls atoi, memcpy and execl
+
+
+execl : fronted for execve
+			arg0 : name of a file to be executed
+			arg1 + ... : arguments to the program that will be executed
+				=> by convention first arg is name of the program
+			argN : (char *) NULL => argument list must be terminated by null pointer
+
+
+argv1 will be fed to atoi, has to be less or equal to 9
+argv2 will be copied on stack, up to argv1 * 4 characters.
+esp+3c (esp + 60) then compared to 0x574f4c46
+buf goes from (esp + 20), + 36 chars == esp + 56 max
+
+esp+3c == ATOI RESULT
+esp+20 == buf
+
+As argv1 * 4 is maximum 9 * 4 = 36, how to write on buf + 40 (esp + 60) ?
+=> Atoi does a signed comparison, atoi result is then multiplied by 4.
+If we manage to give a negative value that will overflow when multiplied by 4, we could end up with a small positive value in ecx.
+
+C000000B in hex is -1073741813 in signed integer
+C000000B * 4 = 3 0000002C (0000002C) => 44 in decimal
