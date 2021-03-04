@@ -20,7 +20,7 @@ sEIP main = 0xffffcdcc
 EBP greetuser = 0xffffcdc8
 sEIP greetuser = 0xffffcd0c
 
-strcat writes greeting string + 72 characters from esp + 16.
+strcat writes (greeting string + 72 characters) from esp + 16.
 with "Hello " as greeting string that leads us to partially overwriting sEIP of greetuser (2 bytes we control, 1 \0, and last byte remains unchanged
 
 with finnish greetings "Hyvää päivää ", we should totally take control over sEIP

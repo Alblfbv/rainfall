@@ -3,6 +3,7 @@
 
 int main(int argc, char **argv)
 {
+    /* PROLOGUE */
     //    0x0804847c <+0>:	push   ebp
     //    0x0804847d <+1>:	mov    ebp,esp
     //    0x0804847f <+3>:	and    esp,0xfffffff0
@@ -38,31 +39,41 @@ int main(int argc, char **argv)
     //    0x080484c5 <+73>:	call   0x8048340 <strcpy@plt>
     //    0x080484ca <+78>:	mov    eax,DWORD PTR [esp+0x18]     //  loads buf2 (containing m address) into eax
     //    0x080484ce <+82>:	mov    eax,DWORD PTR [eax]          //  dereferences m address into eax
-    //    0x080484d0 <+84>:	call   eax                          //  calls m
+    //    0x080484d0 <+84>:	call   eax                          //  calls m (exploit is to make it call n)
+
+    /* EPILOGUE */
     //    0x080484d2 <+86>:	leave
     //    0x080484d3 <+87>:	ret
 }
 
 void n(void)
 {
-    system("/bin/cat /home/user/level7/.pass");
+    /* PROLOGUE */
     //    0x08048454 <+0>:	push   ebp
     //    0x08048455 <+1>:	mov    ebp,esp
     //    0x08048457 <+3>:	sub    esp,0x18
+
+    system("/bin/cat /home/user/level7/.pass");
     //    0x0804845a <+6>:	mov    DWORD PTR [esp],0x80485b0
     //    0x08048461 <+13>:	call   0x8048370 <system@plt>
+
+    /* EPILOGUE */
     //    0x08048466 <+18>:	leave
     //    0x08048467 <+19>:	ret
 }
 
 void m(void)
 {
-    puts("Nope");
+    /* PROLOGUE */
     //    0x08048468 <+0>:	push   ebp
     //    0x08048469 <+1>:	mov    ebp,esp
     //    0x0804846b <+3>:	sub    esp,0x18
+
+    puts("Nope");
     //    0x0804846e <+6>:	mov    DWORD PTR [esp],0x80485d1
     //    0x08048475 <+13>:	call   0x8048360 <puts@plt>
+
+    /* EPILOGUE */
     //    0x0804847a <+18>:	leave
     //    0x0804847b <+19>:	ret
 }

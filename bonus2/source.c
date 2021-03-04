@@ -1,8 +1,10 @@
-void greetuser(void)
+void greetuser(char *buf1)
 {
+    /* PROLOGUE */
     //    0x08048484 <+0>:	push   ebp
     //    0x08048485 <+1>:	mov    ebp,esp
 
+    char buf[88];
     //    0x08048487 <+3>:	sub    esp,0x58
 
     if (LANGUAGE == 1)
@@ -10,6 +12,7 @@ void greetuser(void)
     //    0x0804848f <+11>:	cmp    eax,0x1
     //    0x08048492 <+14>:	je     0x80484ba <greetuser+54>
     {
+        strcpy(buf, "Hyvää päivää ");
         //    0x080484ba <+54>:	mov    edx,0x8048717
         //    0x080484bf <+59>:	lea    eax,[ebp-0x48]
         //    0x080484c2 <+62>:	mov    ecx,DWORD PTR [edx]
@@ -30,6 +33,7 @@ void greetuser(void)
     //    0x08048494 <+16>:	cmp    eax,0x2
     //    0x08048497 <+19>:	je     0x80484e9 <greetuser+101>
     {
+        strcpy(buf, "Goedemiddag! ");
         //    0x080484e9 <+101>:	mov    edx,0x804872a
         //    0x080484ee <+106>:	lea    eax,[ebp-0x48]
         //    0x080484f1 <+109>:	mov    ecx,DWORD PTR [edx]
@@ -46,6 +50,7 @@ void greetuser(void)
     //    0x08048499 <+21>:	test   eax,eax
     //    0x0804849b <+23>:	jne    0x804850a <greetuser+134>
     {
+        strcpy(buf, "Hello ");
         //    0x0804849d <+25>:	mov    edx,0x8048710
         //    0x080484a2 <+30>:	lea    eax,[ebp-0x48]
         //    0x080484a5 <+33>:	mov    ecx,DWORD PTR [edx]
@@ -56,20 +61,27 @@ void greetuser(void)
         //    0x080484b5 <+49>:	mov    BYTE PTR [eax+0x6],dl
         //    0x080484b8 <+52>:	jmp    0x804850a <greetuser+134>
     }
+
+    strcat(buf, buf1);
     //    0x0804850a <+134>:	lea    eax,[ebp+0x8]
     //    0x0804850d <+137>:	mov    DWORD PTR [esp+0x4],eax
     //    0x08048511 <+141>:	lea    eax,[ebp-0x48]
     //    0x08048514 <+144>:	mov    DWORD PTR [esp],eax
     //    0x08048517 <+147>:	call   0x8048370 <strcat@plt>
+
+    puts(buf);
     //    0x0804851c <+152>:	lea    eax,[ebp-0x48]
     //    0x0804851f <+155>:	mov    DWORD PTR [esp],eax
     //    0x08048522 <+158>:	call   0x8048390 <puts@plt>
+
+    /* EPILOGUE */
     //    0x08048527 <+163>:	leave
     //    0x08048528 <+164>:	ret
 }
 
 int main(int argc, char **argv)
 {
+    /* PROLOGUE */
     //    0x08048529 <+0>:	push   ebp
     //    0x0804852a <+1>:	mov    ebp,esp
     //    0x0804852c <+3>:	push   edi
@@ -79,7 +91,7 @@ int main(int argc, char **argv)
 
     char *lang;
     int res;
-    char buf[x];
+    char buf[160];
     //    0x08048532 <+9>:	sub    esp,0xa0
 
     if (argc == 3)
@@ -165,10 +177,14 @@ int main(int argc, char **argv)
         //    0x08048625 <+252>:	mov    esi,ebx
         //    0x08048627 <+254>:	mov    ecx,eax
 
-        COPY BUF ON TOP OF STACK
+        //COPY BUF ON TOP OF STACK
         //    0x08048629 <+256>:	rep movs DWORD PTR es:[edi],DWORD PTR ds:[esi]
+
+        greetuser(buf);
         //    0x0804862b <+258>:	call   0x8048484 <greetuser>
     }
+
+    /* EPILOGUE */
     //    0x08048630 <+263>:	lea    esp,[ebp-0xc]
     //    0x08048633 <+266>:	pop    ebx
     //    0x08048634 <+267>:	pop    esi

@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 
     int fd;
     int res;
-    char buf[];
+    char buf[160];
     //    0x080484fc <+8>:	sub    esp,0xa0
 
     fd = fopen("/home/user/end/.pass", "r");
@@ -22,8 +22,8 @@ int main(int argc, char **argv)
     //    0x0804850c <+24>:	mov    DWORD PTR [esp+0x4],edx
     //    0x08048510 <+28>:	mov    DWORD PTR [esp],eax
     //    0x08048513 <+31>:	call   0x8048410 <fopen@plt>
-    //    0x08048518 <+36>:	mov    DWORD PTR [esp+0x9c],eax
 
+    //    0x08048518 <+36>:	mov    DWORD PTR [esp+0x9c],eax
     //    0x0804851f <+43>:	lea    ebx,[esp+0x18]
     //    0x08048523 <+47>:	mov    eax,0x0
     //    0x08048528 <+52>:	mov    edx,0x21
@@ -50,13 +50,14 @@ int main(int argc, char **argv)
 
         //    0x08048574 <+128>:	mov    BYTE PTR [esp+0x59],0x0
 
-        atoi(argv[1]);
+        res = atoi(argv[1]);
         //    0x08048579 <+133>:	mov    eax,DWORD PTR [ebp+0xc]
         //    0x0804857c <+136>:	add    eax,0x4
         //    0x0804857f <+139>:	mov    eax,DWORD PTR [eax]
         //    0x08048581 <+141>:	mov    DWORD PTR [esp],eax
         //    0x08048584 <+144>:	call   0x8048430 <atoi@plt>
 
+        buf[res] = 0;
         //    0x08048589 <+149>:	mov    BYTE PTR [esp+eax*1+0x18],0x0
 
         fread(buf + 66, 1, 65, fd);
@@ -74,7 +75,7 @@ int main(int argc, char **argv)
         //    0x080485bf <+203>:	mov    DWORD PTR [esp],eax
         //    0x080485c2 <+206>:	call   0x80483c0 <fclose@plt>
 
-        res = strcmp(esp + 0x18, argv[1]);
+        res = strcmp(buf + res, argv[1]);
         //    0x080485c7 <+211>:	mov    eax,DWORD PTR [ebp+0xc]
         //    0x080485ca <+214>:	add    eax,0x4
         //    0x080485cd <+217>:	mov    eax,DWORD PTR [eax]
@@ -87,6 +88,7 @@ int main(int argc, char **argv)
         //    0x080485df <+235>:	test   eax,eax
         //    0x080485e1 <+237>:	jne    0x8048601 <main+269>
         {
+            execl("sh", "/bin/sh");
             //    0x080485e3 <+239>:	mov    DWORD PTR [esp+0x8],0x0
             //    0x080485eb <+247>:	mov    DWORD PTR [esp+0x4],0x8048707
             //    0x080485f3 <+255>:	mov    DWORD PTR [esp],0x804870a
@@ -94,7 +96,7 @@ int main(int argc, char **argv)
             //    0x080485ff <+267>:	jmp    0x8048610 <main+284>
         }
 
-        puts();
+        puts(buf + 66);
         //    0x08048601 <+269>:	lea    eax,[esp+0x18]
         //    0x08048605 <+273>:	add    eax,0x42
         //    0x08048608 <+276>:	mov    DWORD PTR [esp],eax

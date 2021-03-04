@@ -4,12 +4,13 @@
 
 int main(int argc, char **argv)
 {
+    /* PROLOGUE */
     // 0x08048424 <+0>:	push   ebp
     // 0x08048425 <+1>:	mov    ebp,esp
     // 0x08048427 <+3>:	and    esp,0xfffffff0
 
     int res;
-    char buf[];
+    char buf[64];
     // 0x0804842a <+6>:	sub    esp,0x40
 
     res = atoi(argv[1]);
@@ -39,7 +40,7 @@ int main(int argc, char **argv)
         // 0x08048470 <+76>:	mov    DWORD PTR [esp],eax
         // 0x08048473 <+79>:	call   0x8048320 <memcpy@plt>
 
-        if (*(esp + 0x3c) == 0x574f4c46)
+        if (*(buf + 40) == 0x574f4c46)
         // 0x08048478 <+84>:	cmp    DWORD PTR [esp+0x3c],0x574f4c46
         // 0x08048480 <+92>:	jne    0x804849e <main+122>
         {
@@ -50,6 +51,8 @@ int main(int argc, char **argv)
             // 0x08048499 <+117>:	call   0x8048350 <execl@plt>
         }
     }
+
+    /* EPILOGUE */
     // 0x0804849e <+122>:	mov    eax,0x0
     // 0x080484a3 <+127>:	leave
     // 0x080484a4 <+128>:	ret

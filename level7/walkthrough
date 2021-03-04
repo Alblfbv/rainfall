@@ -7,8 +7,14 @@
 2)	malloc results
 		buf1 : 0x804a1a0 => stores buf2 address in 4th to 8th byte
 		buf2 : 0x804a1b0 => strcpy<+127> => stores ARGV1 value
-		buf3 : 0x804a1c0 => stores buf3 address in 4th to 8th byte
+		buf3 : 0x804a1c0 => stores buf4 address in 4th to 8th byte
 		buf4 : 0x804a1d0 => strcpy<+156> => stores ARGV2 value
 
 3)	[ebp+0xc] == ARGV0
 		=> [ebp+0xf] == ARGV1
+
+
+4)	
+	-Goal here is to overwrite Global Offset Table address of puts with m function address.
+	-In main function, fgets write contents of .pass file into a buffer (data section or heap ?)
+	-If we success to call m function, it prints the content of this buffer.
