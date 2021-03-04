@@ -1,0 +1,35 @@
+1) first impressions
+	-no arguments : nothing
+	-main
+	-strcmp, fclose, fread, puts, fopen, execl, atoi
+
+2)	first loop fills stack with 0 from esp + 24 for 21 * 4 (84) ?
+		=> 108 (maybe 156 ???)
+	
+	checks if esp + 156 == 0
+
+3)	writes 0 at esp + 24 + atoi res
+
+we have to write argv1 on esp+0x18 ??
+So that strcmp at the end succeeds
+
+
+buf == esp + 0x18 (24)
+
+
+2 options :
+	-write argv1 inside buf
+	-write argv1 address at buf start ?
+
+when atoi return value is 0, first byte of buffer is overwritten (no offset induced by atoi value)
+strcmp at the end compares buf and argv1.
+If we provide empty string as argv1, as start of buf is also \0, strcmp compares only one byte and returns 0, then we respect the condition to enter the open shell block
+
+
+OUTSIDE VM :
+
+fd address fread2 == 0x804a1a0 
+buf address == 0xffffce18
+
+
+INSIDE VM :
