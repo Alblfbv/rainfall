@@ -78,7 +78,7 @@ void pp(char *buf)
     //    0x08048556 <+56>:	mov    DWORD PTR [esp],eax
     //    0x08048559 <+59>:	call   0x80483a0 <strcpy@plt>
 
-    strcat(buf, buf2);
+    strcat(buf, " ");
     //    0x0804855e <+64>:	mov    ebx,0x80486a4
     //    0x08048563 <+69>:	mov    eax,DWORD PTR [ebp+0x8]
     //    0x08048566 <+72>:	mov    DWORD PTR [ebp-0x3c],0xffffffff
@@ -93,6 +93,8 @@ void pp(char *buf)
     //    0x08048582 <+100>:	add    eax,DWORD PTR [ebp+0x8]
     //    0x08048585 <+103>:	movzx  edx,WORD PTR [ebx]
     //    0x08048588 <+106>:	mov    WORD PTR [eax],dx
+
+    strcat(buf, buf2);
     //    0x0804858b <+109>:	lea    eax,[ebp-0x1c]
     //    0x0804858e <+112>:	mov    DWORD PTR [esp+0x4],eax
     //    0x08048592 <+116>:	mov    eax,DWORD PTR [ebp+0x8]
@@ -114,21 +116,21 @@ int main(void)
     //    0x080485a5 <+1>:	mov    ebp,esp
     //    0x080485a7 <+3>:	and    esp,0xfffffff0
 
-    char buf[64];
+    char buf[42];
     //    0x080485aa <+6>:	sub    esp,0x40
 
     pp(buf);
     //    0x080485ad <+9>:	lea    eax,[esp+0x16]
     //    0x080485b1 <+13>:	mov    DWORD PTR [esp],eax
     //    0x080485b4 <+16>:	call   0x804851e <pp>
-    //    0x080485b9 <+21>:	lea    eax,[esp+0x16]
-    //    0x080485bd <+25>:	mov    DWORD PTR [esp],eax
 
     puts(buf);
+    //    0x080485b9 <+21>:	lea    eax,[esp+0x16]
+    //    0x080485bd <+25>:	mov    DWORD PTR [esp],eax
     //    0x080485c0 <+28>:	call   0x80483b0 <puts@plt>
-    //    0x080485c5 <+33>:	mov    eax,0x0
 
     /* EPILOGUE */
+    //    0x080485c5 <+33>:	mov    eax,0x0
     //    0x080485ca <+38>:	leave
     //    0x080485cb <+39>:	ret
 }
