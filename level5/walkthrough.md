@@ -4,20 +4,21 @@
 
 ### BINARY BEHAVIOR
 
-- 3 function main, n, and o. main call n but o is never called
-  - \<n\>
-    - n gets the stdin input and put it in buf
-    - then printf(buf) (format string exploit)
+- 3 function `main`, `n`, and `o`. `main` calls `n` but `o` is never called
+  - `n` function
+    - allocates a buffer on stack
+    - calls `fgets` on stdin and writes it in buf
+    - then `printf(buf)` (format string exploit)
     - exit
-  - \<o\>
-    - call system("bin/sh")
+  - `o` function
+    - calls `system("bin/sh")`
 
 ### EXPLOIT STRATEGY
 
 - same as before, format string exploit
 
   - in previous levels, overwriting a given address with a given value would lead to a win.
-  - This time, we only see a o function, called nowhere, that makes us win.
+  - This time, we only see a `o` function, called nowhere, that makes us win.
   - Somehow we need to write an format string exploit that will call this function.
   - There's a call to exit so we cannot just override sEIP.
   - Looking to override exit, we saw function name was @plt and then @got.plt.

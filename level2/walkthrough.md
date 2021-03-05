@@ -4,15 +4,15 @@
 
 ### BINARY BEHAVIOR
 
-- main calls p
-- p allocates a buffer on its stack frame
-- gets writes stdin on stack buffer
-- p checks that address in sEIP is not on stack
+- `main` calls `p`
+- `p` allocates a buffer on its stack frame
+- `gets` writes stdin on stack buffer
+- `p` checks that address in sEIP is not a stack address
 
 ### EXPLOIT STRATEGY
 
-- We write our shellcode into buffer + padding to overwrite sEIP by the address of frame_dummy+31(call eax).
-  - because strdup is the last function called before the return of p, we still have strdup return (HEAP address in which all stdin buffer has been copied) in EAX
+- We write our exploit string (shellcode + padding + address of `frame_dummy+31`(call eax)) into `p` stack buffer
+  - because strdup is the last function called before the return of p, we still have strdup return (heap address in which all stdin buffer has been copied) in EAX
   - `frame_dummy + 31 == call EAX`
 
 ### RUN COMMAND

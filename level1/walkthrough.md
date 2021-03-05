@@ -4,14 +4,14 @@
 
 ### BINARY BEHAVIOR
 
-- main allocates 80 bytes on stack
-- gets is then performed to fill this buffer
+- main allocates buffer on stack
+- call to `gets` is then performed to fill this buffer with stdin
 
 ### EXPLOIT STRATEGY
 
-- as gets does not limit the number of bytes it reads :
-  - We can do a stack buffer overflow by overwriting main sEIP with the address of run
-  - When main's ret instruction (pop EIP + jmp EIP) will be performed, it will jump to run function
+- as `gets` does not limit the number of bytes it reads :
+  - We can do a stack buffer overflow by overwriting main sEIP with the address of `run function`
+  - When main's ret instruction (pop EIP + jmp EIP) will be performed, it will jump to `run function`
 
 ### RUN COMMAND
 
