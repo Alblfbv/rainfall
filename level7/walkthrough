@@ -18,3 +18,13 @@
 	-Goal here is to overwrite Global Offset Table address of puts with m function address.
 	-In main function, fgets write contents of .pass file into a buffer (data section or heap ?)
 	-If we success to call m function, it prints the content of this buffer.
+	
+
+	=> First strcpy replaces value stored inside (buf1 + 4) heap3[4] (heap4 addr) by addr GOT puts (thanks to argv1)
+		=> STRCPY1 :
+			-DEST : buf1 + 4 == heap2 => overflows to heap3 + 4 (WILL WRITE INTO HEAP3+4)
+			-SRC : argv1 (padding to access heap3+4 + addr puts GOT)
+	=> Second strcpy stores m address (argv2) into puts GOT addr
+		=> STRCPY2 :
+			-DEST : buf2 + 4 (previously heap4) now points to puts GOT
+			-SRC : argv2 (addr of m)

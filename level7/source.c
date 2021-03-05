@@ -8,50 +8,44 @@ int main(int argc, char **argv)
     //    0x08048522 <+1>:	mov    ebp,esp
     //    0x08048524 <+3>:	and    esp,0xfffffff0
 
-    char *buf1;
-    char *buf2;
-    char *buf3;
-    char *buf4;
+    void *buf1;
+    void *buf2;
     int fd;
     //    0x08048527 <+6>:	sub    esp,0x20
 
-    buf1 = malloc(8);
+    buf1 = malloc(8); // HEAP 1
     //    0x0804852a <+9>:	mov    DWORD PTR [esp],0x8
     //    0x08048531 <+16>:	call   0x80483f0 <malloc@plt>
     //    0x08048536 <+21>:	mov    DWORD PTR [esp+0x1c],eax
     //    0x0804853a <+25>:	mov    eax,DWORD PTR [esp+0x1c]
 
-    *buf1 = 1;
+    (int)*buf1 = 1;
     //    0x0804853e <+29>:	mov    DWORD PTR [eax],0x1
-
-    buf2 = malloc(8);
     //    0x08048544 <+35>:	mov    DWORD PTR [esp],0x8
     //    0x0804854b <+42>:	call   0x80483f0 <malloc@plt>
 
-    *(buf1 + 4) = buf2;
+    *(buf1 + 4) = malloc(8); // HEAP 2
     //    0x08048550 <+47>:	mov    edx,eax
     //    0x08048552 <+49>:	mov    eax,DWORD PTR [esp+0x1c]
     //    0x08048556 <+53>:	mov    DWORD PTR [eax+0x4],edx
 
-    buf3 = malloc(8);
+    buf2 = malloc(8); // HEAP 3
     //    0x08048559 <+56>:	mov    DWORD PTR [esp],0x8
     //    0x08048560 <+63>:	call   0x80483f0 <malloc@plt>
     //    0x08048565 <+68>:	mov    DWORD PTR [esp+0x18],eax
     //    0x08048569 <+72>:	mov    eax,DWORD PTR [esp+0x18]
 
-    *buf3 = 2;
+    (int)*buf2 = 2;
     //    0x0804856d <+76>:	mov    DWORD PTR [eax],0x2
-
-    buf4 = malloc(8);
     //    0x08048573 <+82>:	mov    DWORD PTR [esp],0x8
     //    0x0804857a <+89>:	call   0x80483f0 <malloc@plt>
 
-    *(buf3 + 4) = buf4;
+    *(buf2 + 4) = malloc(8); // HEAP 4
     //    0x0804857f <+94>:	mov    edx,eax
     //    0x08048581 <+96>:	mov    eax,DWORD PTR [esp+0x18]
     //    0x08048585 <+100>:	mov    DWORD PTR [eax+0x4],edx
 
-    strcpy(buf2, argv[1]);
+    strcpy(*(buf1 + 4), argv[1]); // replaces value stored inside heap3[4] (heap4 addr) by addr GOT puts
     //    0x08048588 <+103>:	mov    eax,DWORD PTR [ebp+0xc]
     //    0x0804858b <+106>:	add    eax,0x4
     //    0x0804858e <+109>:	mov    eax,DWORD PTR [eax]
@@ -62,7 +56,7 @@ int main(int argc, char **argv)
     //    0x0804859d <+124>:	mov    DWORD PTR [esp],eax
     //    0x080485a0 <+127>:	call   0x80483e0 <strcpy@plt>
 
-    strcpy(buf4, argv[2]);
+    strcpy(*(buf2 + 4), argv[2]);
     //    0x080485a5 <+132>:	mov    eax,DWORD PTR [ebp+0xc]
     //    0x080485a8 <+135>:	add    eax,0x8
     //    0x080485ab <+138>:	mov    eax,DWORD PTR [eax]
