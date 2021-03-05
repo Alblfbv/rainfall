@@ -22,7 +22,7 @@ void n(void)
     //    0x080484f0 <+46>:	mov    DWORD PTR [esp],eax
     //    0x080484f3 <+49>:	call   0x8048380 <printf@plt>
 
-    exit(1);
+    exit(1);  // overwrite GOT exit
     //    0x080484f8 <+54>:	mov    DWORD PTR [esp],0x1
     //    0x080484ff <+61>:	call   0x80483d0 <exit@plt>
 }

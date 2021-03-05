@@ -19,12 +19,12 @@ void v()
     //    0x080484c4 <+32>:	mov    DWORD PTR [esp],eax
     //    0x080484c7 <+35>:	call   0x80483a0 <fgets@plt>
 
-    printf(buff);
+    printf(buff);  // exploit
     //    0x080484cc <+40>:	lea    eax,[ebp-0x208]
     //    0x080484d2 <+46>:	mov    DWORD PTR [esp],eax
     //    0x080484d5 <+49>:	call   0x8048390 <printf@plt>
 
-    if (eax == 40)
+    if (eax == 64)
     //    0x080484da <+54>:	mov    eax,ds:0x804988c
     //    0x080484df <+59>:	cmp    eax,0x40
     //    0x080484e2 <+62>:	jne    0x8048518 <v+116>

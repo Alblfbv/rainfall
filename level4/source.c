@@ -24,8 +24,8 @@ void n(void)
    // 0x08048458 <+1>:	mov    ebp,esp
 
    char buf[536];
+   void *m;
    // 0x0804845a <+3>:	sub    esp,0x218
-
    fgets(buf, 0x200, 0);
    // 0x08048460 <+9>:	mov    eax,ds:0x8049804
    // 0x08048465 <+14>:	mov    DWORD PTR [esp+0x8],eax
@@ -39,11 +39,13 @@ void n(void)
    // 0x08048485 <+46>:	mov    DWORD PTR [esp],eax
    // 0x08048488 <+49>:	call   0x8048444 <p>
 
-   if (*(0x8049810) == 0x1025544)
+   m = 0x8049810;
+   if (*(m) == 16930116)
    // 0x0804848d <+54>:	mov    eax,ds:0x8049810
    // 0x08048492 <+59>:	cmp    eax,0x1025544
    // 0x08048497 <+64>:	jne    0x80484a5 <n+78>
    {
+      system("bin/sh");
       // 0x08048499 <+66>:	mov    DWORD PTR [esp],0x8048590
       // 0x080484a0 <+73>:	call   0x8048360 <system@plt>
    }

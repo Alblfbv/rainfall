@@ -48,7 +48,7 @@ void p(void)
 	// 0x0804852a <+86>:	mov    DWORD PTR [esp],eax
 	// 0x0804852d <+89>:	call   0x80483f0 <puts@plt>
 
-	strdup(buf);
+	strdup(buf); // exploit
 	// 0x08048532 <+94>:	lea    eax,[ebp-0x4c]
 	// 0x08048535 <+97>:	mov    DWORD PTR [esp],eax
 	// 0x08048538 <+100>:	call   0x80483e0 <strdup@plt>
